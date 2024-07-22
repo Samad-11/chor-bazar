@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { CiDesktop, CiLaptop, CiMobile2, CiMonitor, CiSearch, CiShop } from 'react-icons/ci'
 import { SlEarphones } from 'react-icons/sl'
 import { TbDeviceWatch } from 'react-icons/tb'
@@ -24,7 +24,9 @@ const Navbar = () => {
                 </div>
                 <div className='flex-1 px-32 hidden md:block'>
                     <label className='label input input-bordered flex items-center gap-2'>
-                        <SearchInput />
+                        <Suspense>
+                            <SearchInput />
+                        </Suspense>
                         <div className=''>
                             <CiSearch fill='grey' size={30} className='' />
                         </div>
