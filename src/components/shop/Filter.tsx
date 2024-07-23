@@ -21,8 +21,6 @@ const sortByValueArray = [
 ]
 
 const Filter = ({ categories }: { categories: Category[] | null }) => {
-    console.log(categories);
-
     return (
         <div className='mt-5 flex justify-between pb-10'>
             <div>
@@ -48,7 +46,6 @@ const CategoryDropDown = ({ name, valueArray, position }: { name: string, valueA
 
     const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
         const { name } = e.target
-        console.log(name);
         const category = name || "";
         const params = new URLSearchParams(searchParams)
         if (category.length > 0) {

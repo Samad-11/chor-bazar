@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist, PersistOptions } from 'zustand/middleware';
+import { createJSONStorage, persist, PersistOptions } from 'zustand/middleware';
 
 export type CartItem = {
     id: string;
@@ -112,7 +112,7 @@ const useCartStore = create<CartState>()(
         }),
         {
             name: 'cart-storage', // unique name for storage key
-            getStorage: () => localStorage, // use local storage to persist state
+            storage: createJSONStorage(() => localStorage), // use local storage to persist state
         }
     )
 );

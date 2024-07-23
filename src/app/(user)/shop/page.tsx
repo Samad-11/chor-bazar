@@ -1,6 +1,6 @@
 import Container from '@/components/container'
 import Filter from '@/components/shop/Filter'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { getAllCategories } from '@/actions/productActions'
 import Products from './components/Products'
 

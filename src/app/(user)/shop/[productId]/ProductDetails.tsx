@@ -24,14 +24,11 @@ const ProductDetails = ({ product }: { product: ProductWithCategory }) => {
         const color = product.colors[selectedColor].color
         const imageUrl = product.colors[selectedColor].images[0]
         addItem({ color, id, imageUrl, name, price, productId, quantity })
-        console.log(items);
 
     }
 
 
     useEffect(() => {
-        console.log(items);
-
     }, [items])
 
     return (

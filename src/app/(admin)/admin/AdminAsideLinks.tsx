@@ -57,7 +57,6 @@ const AdminAsideLinks = () => {
         <div className='flex flex-col gap-4   pt-10'>
             {
                 asideLinks.map((link, indx) => {
-                    console.log(link.href.split("/")[2]);
 
                     return (
                         <Link

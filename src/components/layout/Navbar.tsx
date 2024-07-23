@@ -5,13 +5,15 @@ import { CiDesktop, CiLaptop, CiMobile2, CiMonitor, CiSearch, CiShop } from 'rea
 import { SlEarphones } from 'react-icons/sl'
 import { TbDeviceWatch } from 'react-icons/tb'
 import SearchInput from '../SearchInput'
+import { auth } from '@/auth'
+import LogoutButton from '../LogoutButton'
 
-const Navbar = () => {
+const Navbar = async () => {
     const NavbarCart = dynamic(() => import('./NavbarCart'), { ssr: false })
-
+    const session = await auth()
     return (
-        <div className='sticky top-0 z-40'>
 
+        <div className='sticky top-0 z-40'>
             <div className="navbar bg-primary 
         
         justify-between
@@ -47,12 +49,19 @@ const Navbar = () => {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                             <li>
                                 <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
+                                    {session?.user ? session.user.name : "Guest User"}
                                 </a>
                             </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                            {
+                                session?.user ?
+                                    <>
+                                        <li><a>Settings</a></li>
+                                        <li><LogoutButton /></li>
+                                    </> : <>
+                                        <li><Link href={"/api/auth/signin"}>Login</Link></li>
+                                        <li><Link href={"/register"}>Register</Link></li>
+                                    </>
+                            }
                         </ul>
                     </div>
                 </div>

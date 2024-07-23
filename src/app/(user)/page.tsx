@@ -9,6 +9,9 @@ import { getAllProducts } from "@/actions/productActions";
 export default async function Home() {
   const data = await getAllProducts()
   const products = data.products
+
+
+
   return (
     <>
       <HeroBanner />

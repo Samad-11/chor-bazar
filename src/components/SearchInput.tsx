@@ -8,7 +8,6 @@ const SearchInput = () => {
     const pathname = usePathname();
     const { replace } = useRouter()
     const handleSearch = useDebouncedCallback((term: string) => {
-        console.log('term', term);
 
         const params = new URLSearchParams(searchParams)
         if (term) {
@@ -17,7 +16,7 @@ const SearchInput = () => {
             params.delete('query')
         }
         replace(`${pathname}?${params.toString()}`)
-    }, 400)
+    }, 300)
     return (
         <input
             onChange={(e) => { handleSearch(e.target.value) }}

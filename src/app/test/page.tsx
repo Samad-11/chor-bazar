@@ -21,9 +21,6 @@ const TestPage = () => {
 
 
     useEffect(() => {
-        // console.log('====================================');
-        // console.log(image);
-        // console.log('====================================');
         if (image) {
             let i: number;
             for (i = 0; i < image.length; i++) {

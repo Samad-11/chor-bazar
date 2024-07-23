@@ -8,9 +8,6 @@ import ProductCard from "../ProductCard";
 import { Product } from "@prisma/client";
 import { ProductWithCategory } from "@/types/types";
 const LatestProducts = ({ products }: { products: ProductWithCategory[] }) => {
-    // console.log('====================================');
-    // console.log(products[1].reviews);
-    // console.log('====================================');
     return (
         <div
         // className="bg-red-100"

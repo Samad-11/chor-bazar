@@ -1,14 +1,18 @@
 'use client'
 import useCartStore from '@/store/cartStore'
 import { numberToCurrency } from '@/utils/supportFunctions'
+import { useSession } from 'next-auth/react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 const NavbarCart = () => {
     const { totalItems, totalPrice } = useCartStore()
+
+
     return (
         <div className="dropdown dropdown-end">
+            hello
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                 <div className="indicator">
                     <svg

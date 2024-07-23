@@ -12,7 +12,6 @@ const ProductTable = ({ products, productCount }: { products: ProductWithCategor
             No Data
         </div>
     }
-    console.log(products);
 
     return (
         <div>

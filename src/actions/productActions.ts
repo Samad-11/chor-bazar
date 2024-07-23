@@ -97,7 +97,6 @@ export async function testFormdata(formdata: FormData) {
         }
 
     } catch (error) {
-        console.log('formdata error');
         return {
             message: "Something went wrong",
             ok: false
@@ -108,7 +107,6 @@ export async function testFormdata(formdata: FormData) {
 
 export async function addProduct(formdata: FormData) {
     try {
-        console.log("start")
         const name = formdata.get("name") as string
         const description = formdata.get("description") as string
         const brand = formdata.get("brand") as string
@@ -134,11 +132,9 @@ export async function addProduct(formdata: FormData) {
         }
 
         if (!(name || description || brand || category || colorSize || price || colorArray)) {
-            console.log("Invalid fields");
             return
         }
 
-        console.log(colorArray[0].randomKey)
         colorArray.forEach(async (c, i) => {
             c.images.forEach(async (img, j) => {
                 const arrayBuffer = await img.arrayBuffer()
@@ -173,13 +169,10 @@ export async function addProduct(formdata: FormData) {
                 colors,
             }
         })
-        console.log("end...")
         return {
             message: "Product Added Successfully", ok: true
         }
-        // console.log('new product', newProduct);
     } catch (error) {
-        console.log("Error Occured", error);
         return { message: "Failed to add product", ok: false }
     }
 }
@@ -201,7 +194,6 @@ export async function uploadFile(formdata: FormData) {
         )
     }
 
-    console.log(imageKeyArray);
 
 
     imagesArray.forEach(async (image, indx) => {
@@ -217,7 +209,6 @@ export async function uploadFile(formdata: FormData) {
 
         const res = await s3.send(cmd)
 
-        console.log(res);
     })
 
     const product = await prisma.product.create({
@@ -258,9 +249,7 @@ export async function uploadFile(formdata: FormData) {
     // })
 
     // const res = await s3.send(cmd)
-    // console.log('====================================');
-    // console.log(res);
-    // console.log('====================================');
+
 }
 
 export async function getAllProducts() {
@@ -342,7 +331,6 @@ export async function getAllProduct2(query: string, category: string) {
             if (query.length > 0 && category === "") {
 
 
-                console.log(query);
                 const upperCase = query.toUpperCase()
                 // const lowerCase = query.toLowerCase()
                 const products = await prisma.product.findMany({
@@ -359,7 +347,6 @@ export async function getAllProduct2(query: string, category: string) {
                     },
                     include: { category: true }
                 })
-                console.log(products);
 
                 return { products, ok: true }
             } else {
