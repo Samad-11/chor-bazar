@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { Suspense } from 'react'
 import { CiDesktop, CiLaptop, CiMobile2, CiMonitor, CiSearch, CiShop } from 'react-icons/ci'
@@ -14,6 +13,8 @@ import ProfileButton from '../ProfileButton'
 import { Address } from '@prisma/client'
 import { getUserAddress } from '@/actions/userAction'
 import { getUserIdByEmail } from '@/actions/authActions'
+import { signIn } from 'next-auth/react'
+import LoginWithGoogle from '../LoginWithGoogle'
 
 
 const Navbar = async () => {
@@ -86,8 +87,9 @@ const Navbar = async () => {
                                         <div className="divider"></div>
                                         <li><LogoutButton /></li>
                                     </> : <>
-                                        <li><Link href={"/api/auth/signin"}>Login</Link></li>
-                                        <li><Link href={"/register"}>Register</Link></li>
+                                        {/* <li><Link href={"/api/auth/signin"}>Login</Link></li>
+                                        <li><Link href={"/register"}>Register</Link></li> */}
+                                        <li><LoginWithGoogle /></li>
                                     </>
                             }
                         </ul>
