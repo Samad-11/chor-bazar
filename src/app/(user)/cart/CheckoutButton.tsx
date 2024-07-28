@@ -16,7 +16,7 @@ const CheckoutButton = ({ session }: { session: Session | null }) => {
 
     const getOrderId = async () => {
         try {
-            const res = await fetch("http://localhost:3000/api/payment/order", {
+            const res = await fetch(`${process.env.BASE_URL}/api/payment/order`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ const CheckoutButton = ({ session }: { session: Session | null }) => {
                 handler: async (response: any) => {
                     try {
 
-                        const res = await fetch("http://localhost:3000/api/payment/verification", {
+                        const res = await fetch(`${process.env.BASE_URL}/api/payment/verification`, {
                             method: "POST",
                             headers: {
                                 'Content-Type': 'application/json'

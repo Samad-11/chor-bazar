@@ -32,7 +32,7 @@ const NavbarCart = () => {
                     <span className="text-lg font-bold">{totalItems} Items</span>
                     <span className="text-info">Subtotal: {numberToCurrency(totalPrice)}</span>
                     <div className="card-actions">
-                        <Link href={"http://localhost:3000/cart"} className="btn btn-primary btn-block">View cart</Link>
+                        <Link href={"/cart"} className="btn btn-primary btn-block">View cart</Link>
                     </div>
                 </div>
             </div>

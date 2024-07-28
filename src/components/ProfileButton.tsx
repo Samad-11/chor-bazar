@@ -12,7 +12,6 @@ const ProfileButton = ({ session, address, userId }: { session: Session, address
     const handleModal = () => {
         formRef?.current?.showModal()
         console.log("modal click");
-
     }
     return (
         <div className="" onClick={handleModal}>
