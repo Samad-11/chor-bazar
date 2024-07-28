@@ -1,11 +1,19 @@
-import NextAuth from "next-auth"
+import NextAuth, { NextAuthConfig } from "next-auth"
 import { Provider } from "next-auth/providers"
 import Credentials from "next-auth/providers/credentials"
 import prisma from "./lib/prisma"
-import { hash } from "bcryptjs"
+import { compare, hash } from "bcryptjs"
+import { Adapter } from "next-auth/adapters"
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import Google from "next-auth/providers/google"
 
 
 const providers: Provider[] = [
+  Google({
+    clientId: process.env.GOOGLE_CLIENT_ID!,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+
+  }),
   Credentials({
     name: "credential",
     credentials: {
@@ -30,7 +38,7 @@ const providers: Provider[] = [
         return null
       }
 
-      const isPasswordCorrect = await hash(credential.password as string, user.hashedPassword)
+      const isPasswordCorrect = await compare(credential.password as string, user.hashedPassword)
       if (!isPasswordCorrect) {
         return null
       }
@@ -41,7 +49,8 @@ const providers: Provider[] = [
   })
 ]
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const authOptions: NextAuthConfig = {
+  adapter: PrismaAdapter(prisma),
   providers,
   callbacks: {
     async jwt({ token, user }) {
@@ -59,5 +68,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   pages: {
     signIn: "/login"
+  },
+  session: {
+    strategy: "jwt"
   }
-})
+}
+
+export const { handlers, signIn, signOut, auth } = NextAuth(authOptions)

@@ -37,6 +37,14 @@ const LoginForm = ({ session }: { session: Session | null }) => {
     return (
         <div className=' mt-20'>
             <form onSubmit={handleLogin} className='max-w-md flex flex-col gap-4 mx-auto'>
+                <button
+                    type='button'
+                    className='btn btn-secondary'
+                    onClick={async () => {
+                        const res = await signIn("google", { callbackUrl: "/" })
+
+                    }}
+                >Login with Google</button>
                 <label className="input input-bordered flex items-center gap-2">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

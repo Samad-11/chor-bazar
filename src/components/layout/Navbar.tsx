@@ -7,10 +7,22 @@ import { TbDeviceWatch } from 'react-icons/tb'
 import SearchInput from '../SearchInput'
 import { auth } from '@/auth'
 import LogoutButton from '../LogoutButton'
+import NavbarCart from './NavbarCart'
+import Image from 'next/image'
+import { FaUser } from 'react-icons/fa'
+import ProfileButton from '../ProfileButton'
+import { Address } from '@prisma/client'
+import { getUserAddress } from '@/actions/userAction'
+import { getUserIdByEmail } from '@/actions/authActions'
+
 
 const Navbar = async () => {
-    const NavbarCart = dynamic(() => import('./NavbarCart'), { ssr: false })
     const session = await auth()
+    const userId = await getUserIdByEmail(session?.user.email)
+    const address = await getUserAddress(userId?.id)
+
+    console.log('address', address);
+
     return (
 
         <div className='sticky top-0 z-40'>
@@ -34,28 +46,44 @@ const Navbar = async () => {
                         </div>
                     </label>
                 </div>
-                <div className="flex-none">
+                <div className="flex-none gap-2">
+                    <div>
+                        <h3>
+                            Hello, {' '}
+                            <span className='font-semibold'>
+                                {
+                                    session?.user ?
+                                        session.user.name :
+                                        'Guest'
+                                }
+                            </span>
+                        </h3>
+                    </div>
                     <NavbarCart />
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img
-                                    alt="Tailwind CSS Navbar component"
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                            </div>
+                            {
+                                session?.user.image ?
+                                    <div className="w-10 rounded-full relative">
+                                        <Image
+                                            fill
+                                            className='object-cover'
+                                            alt={"user Image"}
+                                            src={session?.user.image} />
+                                    </div>
+                                    :
+                                    <FaUser className='text-2xl' />
+                            }
                         </div>
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li>
-                                <a className="justify-between">
-                                    {session?.user ? session.user.name : "Guest User"}
-                                </a>
-                            </li>
                             {
                                 session?.user ?
                                     <>
-                                        <li><a>Settings</a></li>
+                                        <li><Link href={'/order'}>Orders</Link></li>
+                                        <li><ProfileButton userId={userId?.id} session={session} address={address} /></li>
+                                        <div className="divider"></div>
                                         <li><LogoutButton /></li>
                                     </> : <>
                                         <li><Link href={"/api/auth/signin"}>Login</Link></li>
@@ -128,5 +156,6 @@ const NavBottom = () => {
         </div>
     )
 }
+
 
 export default Navbar

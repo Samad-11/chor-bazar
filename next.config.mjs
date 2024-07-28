@@ -11,6 +11,9 @@ const nextConfig = {
       {
         hostname: "abdus-samad-bucket-1.s3.ap-southeast-2.amazonaws.com",
       },
+      {
+        hostname: "lh3.googleusercontent.com",
+      },
     ],
   },
 };

@@ -61,6 +61,21 @@ export async function registerUser(formData: FormData) {
 }
 
 
+export const getUserIdByEmail = async (email: string | null | undefined) => {
+    if (!email) return null
+    const userId = await prisma.user.findUnique({
+        where: {
+            email
+        },
+        select: {
+            id: true
+        }
+    })
+    if (userId) {
+        return userId
+    }
+    return null
+}
 
 
 // export async function registerUser(_prevState: any, formData: FormData) {

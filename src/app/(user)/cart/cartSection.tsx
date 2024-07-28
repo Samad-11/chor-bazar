@@ -4,8 +4,10 @@ import ClearCartButton from './ClearCartButton'
 import { numberToCurrency } from '@/utils/supportFunctions'
 import Link from 'next/link'
 import { FaLongArrowAltLeft } from 'react-icons/fa'
+import CheckoutButton from './CheckoutButton'
+import { Session } from 'next-auth'
 
-const CartSection = () => {
+const CartSection = ({ session }: { session: Session | null }) => {
     const { totalItems, totalPrice } = useCartStore()
 
     if (totalItems === 0) {
@@ -34,9 +36,7 @@ const CartSection = () => {
                     Taxes and shipping calculate at checkout
                 </div>
                 <div className="flex-1">
-                    <button
-                        className='btn btn-primary btn-block rounded-2xl'
-                        type="button">Checkout</button>
+                    <CheckoutButton session={session} />
                 </div>
                 <div className="flex-1">
                     <Link href={"/shop"} className='flex gap-2 items-center text-sm text-gray-500 link link-hover'>
