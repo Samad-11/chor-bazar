@@ -13,7 +13,8 @@ import useRazorpay from "react-razorpay"
 const CheckoutButton = ({ session }: { session: Session | null }) => {
     const { totalPrice, items, clearCart } = useCartStore()
     const [loading, setLoading] = useState(false)
-
+    const { push } = useRouter()
+    const [Razorpay] = useRazorpay()
 
     const getOrderId = async () => {
         try {
@@ -39,11 +40,6 @@ const CheckoutButton = ({ session }: { session: Session | null }) => {
             return null
         }
     }
-
-
-
-    const { push } = useRouter()
-    const [Razorpay] = useRazorpay()
 
     const checkoutHandler = async () => {
         setLoading(true)
