@@ -1,6 +1,6 @@
 'use client'
 
-import { getSession } from "@/actions/testAction"
+import { getSession } from "@/actions/userAction"
 import { Session } from "next-auth"
 import { useEffect, useState } from "react"
 

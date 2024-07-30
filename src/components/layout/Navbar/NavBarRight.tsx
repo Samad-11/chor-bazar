@@ -1,6 +1,5 @@
 'use client'
 
-import { getSession } from "@/actions/testAction"
 import { Session } from "next-auth"
 import { useEffect, useState } from "react"
 import NavbarCart from "../NavbarCart"
@@ -12,7 +11,7 @@ import LogoutButton from "@/components/LogoutButton"
 import LoginWithGoogle from "@/components/LoginWithGoogle"
 import { Address } from "@prisma/client"
 import { getUserIdByEmail } from "@/actions/authActions"
-import { getUserAddress } from "@/actions/userAction"
+import { getSession, getUserAddress } from "@/actions/userAction"
 
 const NavBarRight = () => {
     const [session, setSession] = useState<Session | null>

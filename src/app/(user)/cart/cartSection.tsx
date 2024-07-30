@@ -7,7 +7,7 @@ import { FaLongArrowAltLeft } from 'react-icons/fa'
 import CheckoutButton from './CheckoutButton'
 import { Session } from 'next-auth'
 import { useEffect, useState } from 'react'
-import { getSession } from '@/actions/testAction'
+import { getSession } from '@/actions/userAction'
 
 const CartSection = () => {
     const [session, setSession] = useState<Session | null>(null)

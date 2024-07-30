@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth"
 import prisma from "@/lib/prisma"
+import { Session } from "next-auth"
 
 export async function getUserAddress(userId: string | null | undefined) {
     if (!userId) return null
@@ -57,12 +58,12 @@ export async function addUpdateUserAddress(formdata: FormData, userId: string) {
     }
 }
 
-export const getSessions = async () => {
+export async function getSession(): Promise<Session | null> {
     try {
 
         return await auth()
     } catch (error) {
-        console.log("error in getSession", error);
+        console.log("error getsession");
         return null
     }
 }
