@@ -1,11 +1,13 @@
 import Container from '@/components/container'
-import { products } from '@/utils/dummy/products'
 import React from 'react'
 import ProductDetails from './ProductDetails'
 import ExtraInfo from '@/components/Home/ExtraInfo'
-import { getProductById } from '@/actions/productActions'
+import { getAllProducts, getProductById } from '@/actions/productActions'
 
-const ProductPage = async ({ params }: { params: { productId: string } }) => {
+
+
+
+const page = async ({ params }: { params: { productId: string } }) => {
     const data = await getProductById(params.productId)
     return (
         <Container>
@@ -21,4 +23,13 @@ const ProductPage = async ({ params }: { params: { productId: string } }) => {
     )
 }
 
-export default ProductPage
+
+export async function generateStaticParams() {
+    const { ok, products } = await getAllProducts()
+    if (!ok || !products) return []
+    return products.map((product) => ({
+        productId: product.id
+    }))
+}
+
+export default page

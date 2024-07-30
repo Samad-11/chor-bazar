@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC, ReactNode, Suspense } from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
 

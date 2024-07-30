@@ -8,14 +8,20 @@ const CartTableQuantityRow = ({ item }: { item: CartItem }) => {
     return (
         <td className='flex justify-between items-center'>
             <button type="button"
-                onClick={() => decreaseQuantity(item)}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    decreaseQuantity(item)
+                }}
                 className='text-lg font-bold btn btn-neutral rounded-xl btn-sm'
             >-</button>
             {
                 item.quantity
             }
             <button type="button"
-                onClick={() => increaseQuantity(item)}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    increaseQuantity(item)
+                }}
                 className='text-lg font-bold btn btn-neutral rounded-xl btn-sm'
             >+</button>
         </td>

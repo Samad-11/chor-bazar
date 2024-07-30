@@ -1,4 +1,3 @@
-import Container from "@/components/container";
 import HeroBanner from "@/components/Home/HeroBanner";
 import LatestProducts from "@/components/Home/LatestProducts";
 import MostRatedProducts from "@/components/Home/MostRatedProducts";

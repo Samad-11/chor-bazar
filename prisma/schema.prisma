@@ -85,9 +85,9 @@ model Order {
 model Payment {
   id                String   @id @default(auto()) @map("_id") @db.ObjectId
   orderId           String   @unique @db.ObjectId
-  razorpayOrderId   String
-  razorpayPaymentId String
-  razorpaySignature String
+  razorpayOrderId   String   @unique
+  razorpayPaymentId String   @unique
+  razorpaySignature String   @unique
   order             Order    @relation(fields: [orderId], references: [id])
   createdAt         DateTime @default(now())
 }

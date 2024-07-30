@@ -1,26 +1,17 @@
+import { getSession } from '@/actions/testAction'
 import { auth } from '@/auth'
 import Container from '@/components/container'
-import React from 'react'
-import { GetServerSidePropsContext } from 'next'
-import { getSession } from 'next-auth/react'
+import React, { FC } from 'react'
+import Test2Component from './Test2Component'
 
 
-
-const Test2Page = async () => {
-    const session = await auth()
-    console.log("GOOGLE_CLIENT_ID", process.env.GOOGLE_CLIENT_ID);
-    console.log("GOOGLE_CLIENT_SECRET", process.env.GOOGLE_CLIENT_SECRET);
-
+const page = () => {
 
     return (
         <div>
-            <pre>
-                {
-                    JSON.stringify(session?.user, null, 2)
-                }
-            </pre>
+            <Test2Component />
         </div>
     )
 }
 
-export default Test2Page
+export default page

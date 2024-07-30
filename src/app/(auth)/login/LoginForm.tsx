@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import React, { FormEvent, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 
-const LoginForm = ({ session }: { session: Session | null }) => {
+const LoginForm = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const { push, refresh } = useRouter()

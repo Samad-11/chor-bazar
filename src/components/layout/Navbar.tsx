@@ -1,29 +1,16 @@
 import Link from 'next/link'
 import React, { Suspense } from 'react'
-import { CiDesktop, CiLaptop, CiMobile2, CiMonitor, CiSearch, CiShop } from 'react-icons/ci'
+import { CiDesktop, CiLaptop, CiMobile2, CiMonitor, CiSearch } from 'react-icons/ci'
 import { SlEarphones } from 'react-icons/sl'
 import { TbDeviceWatch } from 'react-icons/tb'
 import SearchInput from '../SearchInput'
-import { auth } from '@/auth'
-import LogoutButton from '../LogoutButton'
-import NavbarCart from './NavbarCart'
-import Image from 'next/image'
-import { FaUser } from 'react-icons/fa'
-import ProfileButton from '../ProfileButton'
-import { Address } from '@prisma/client'
-import { getUserAddress } from '@/actions/userAction'
-import { getUserIdByEmail } from '@/actions/authActions'
-import { signIn } from 'next-auth/react'
-import LoginWithGoogle from '../LoginWithGoogle'
+import NavBarRight from './Navbar/NavBarRight'
 
 
-const Navbar = async () => {
-    const session = await auth()
-    const userId = await getUserIdByEmail(session?.user.email)
-    const address = await getUserAddress(userId?.id)
-
-    console.log('address', address);
-
+const Navbar = () => {
+    // const session = await auth()
+    // const userId = await getUserIdByEmail(session?.user.email)
+    // const address = await getUserAddress(userId?.id)
     return (
 
         <div className='sticky top-0 z-40'>
@@ -35,7 +22,7 @@ const Navbar = async () => {
         sm:py-4
         ">
                 <div className="">
-                    <Link href={'/'} className="text-3xl font-bold font-caveat">Chor Bazar</Link>
+                    <Link href={'/'} prefetch className="text-3xl font-bold font-caveat">Chor Bazar</Link>
                 </div>
                 <div className='flex-1 px-32 hidden md:block'>
                     <label className='label input input-bordered flex items-center gap-2'>
@@ -47,54 +34,7 @@ const Navbar = async () => {
                         </div>
                     </label>
                 </div>
-                <div className="flex-none gap-2">
-                    <div>
-                        <h3>
-                            Hello, {' '}
-                            <span className='font-semibold'>
-                                {
-                                    session?.user ?
-                                        session.user.name :
-                                        'Guest'
-                                }
-                            </span>
-                        </h3>
-                    </div>
-                    <NavbarCart />
-                    <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            {
-                                session?.user.image ?
-                                    <div className="w-10 rounded-full relative">
-                                        <Image
-                                            fill
-                                            className='object-cover'
-                                            alt={"user Image"}
-                                            src={session?.user.image} />
-                                    </div>
-                                    :
-                                    <FaUser className='text-2xl' />
-                            }
-                        </div>
-                        <ul
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            {
-                                session?.user ?
-                                    <>
-                                        <li><Link href={'/order'}>Orders</Link></li>
-                                        <li><ProfileButton userId={userId?.id} session={session} address={address} /></li>
-                                        <div className="divider"></div>
-                                        <li><LogoutButton /></li>
-                                    </> : <>
-                                        {/* <li><Link href={"/api/auth/signin"}>Login</Link></li>
-                                        <li><Link href={"/register"}>Register</Link></li> */}
-                                        <li><LoginWithGoogle /></li>
-                                    </>
-                            }
-                        </ul>
-                    </div>
-                </div>
+                <NavBarRight />
             </div>
             {/* <NavBottom /> */}
         </div>

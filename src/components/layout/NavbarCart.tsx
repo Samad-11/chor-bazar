@@ -1,7 +1,6 @@
 'use client'
 import useCartStore from '@/store/cartStore'
 import { numberToCurrency } from '@/utils/supportFunctions'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
 const NavbarCart = () => {

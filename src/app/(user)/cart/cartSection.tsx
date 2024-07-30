@@ -6,8 +6,14 @@ import Link from 'next/link'
 import { FaLongArrowAltLeft } from 'react-icons/fa'
 import CheckoutButton from './CheckoutButton'
 import { Session } from 'next-auth'
+import { useEffect, useState } from 'react'
+import { getSession } from '@/actions/testAction'
 
-const CartSection = ({ session }: { session: Session | null }) => {
+const CartSection = () => {
+    const [session, setSession] = useState<Session | null>(null)
+    useEffect(() => {
+        getSession().then(data => setSession(data))
+    }, [])
     const { totalItems, totalPrice } = useCartStore()
 
     if (totalItems === 0) {

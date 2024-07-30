@@ -1,9 +1,8 @@
 import React from 'react'
 import LoginForm from './LoginForm'
-import { auth } from '@/auth'
 
-const LoginPage = async () => {
-    const session = await auth()
+const page = () => {
+
     return (
         <div>
             <h1 className='text-3xl font-semibold 
@@ -14,9 +13,9 @@ const LoginPage = async () => {
                     {" "} Chor Bazar
                 </span>
             </h1>
-            <LoginForm session={session} />
+            <LoginForm />
         </div>
     )
 }
 
-export default LoginPage
+export default page

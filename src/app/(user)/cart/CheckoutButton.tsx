@@ -6,17 +6,18 @@ import { getUserAddress } from "@/actions/userAction"
 import useCartStore from "@/store/cartStore"
 import { Session } from "next-auth"
 import { useRouter } from "next/navigation"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import toast from "react-hot-toast"
 import useRazorpay from "react-razorpay"
 
 const CheckoutButton = ({ session }: { session: Session | null }) => {
     const { totalPrice, items, clearCart } = useCartStore()
+    const [loading, setLoading] = useState(false)
 
 
     const getOrderId = async () => {
         try {
-            const res = await fetch(`${process.env.BASE_URL}/api/payment/order`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/order`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -31,8 +32,10 @@ const CheckoutButton = ({ session }: { session: Session | null }) => {
             const data = await res.json()
             return data.orderId
         } catch (error) {
+
             toast.error("Failed to create order")
             console.error(error)
+
             return null
         }
     }
@@ -43,6 +46,7 @@ const CheckoutButton = ({ session }: { session: Session | null }) => {
     const [Razorpay] = useRazorpay()
 
     const checkoutHandler = async () => {
+        setLoading(true)
         try {
             if (!session?.user) {
                 toast.error('You must be logged in to checkout.')
@@ -82,11 +86,11 @@ const CheckoutButton = ({ session }: { session: Session | null }) => {
                     color: "#121212",
                     backdrop_color: "#ffffff"
                 },
-                redirect: false,
+                redirect: true,
                 handler: async (response: any) => {
                     try {
 
-                        const res = await fetch(`${process.env.BASE_URL}/api/payment/verification`, {
+                        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/payment/verification`, {
                             method: "POST",
                             headers: {
                                 'Content-Type': 'application/json'
@@ -100,15 +104,14 @@ const CheckoutButton = ({ session }: { session: Session | null }) => {
 
                         const data = await res.json();
 
-
                         if (data.ok) {
                             const res = await createCompleteOrder(totalPrice, userIdData.id, response.razorpay_order_id, response.razorpay_payment_id, response.razorpay_signature, items)
                             console.log("order-id", orderId);
 
                             if (res?.status) {
-                                clearCart()
+                                push(`/order-success/${response.razorpay_payment_id}`)
                                 toast.success("Payment successful")
-                                push(`/order-success?referer=${response.razorpay_payment_id}`)
+                                clearCart()
                             }
                         } else {
                             toast.error("Payment failed")
@@ -132,13 +135,20 @@ const CheckoutButton = ({ session }: { session: Session | null }) => {
             console.log(error);
             console.log('====================================');
         }
+        finally {
+            setLoading(false)
+        }
     }
 
     return (
         <button
             onClick={checkoutHandler}
+            disabled={loading}
             className='btn btn-primary btn-block rounded-2xl'
-            type="button">Checkout</button>
+            type="button">{
+                loading ? <span className="loading loading-spinner"></span> :
+                    "Checkout"
+            }</button>
     )
 }
 

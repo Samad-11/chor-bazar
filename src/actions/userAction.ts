@@ -1,7 +1,7 @@
 "use server"
 
+import { auth } from "@/auth"
 import prisma from "@/lib/prisma"
-import { revalidatePath } from "next/cache"
 
 export async function getUserAddress(userId: string | null | undefined) {
     if (!userId) return null
@@ -56,3 +56,14 @@ export async function addUpdateUserAddress(formdata: FormData, userId: string) {
         return { message: "Something went wrong", ok: false }
     }
 }
+
+export const getSessions = async () => {
+    try {
+
+        return await auth()
+    } catch (error) {
+        console.log("error in getSession", error);
+        return null
+    }
+}
+

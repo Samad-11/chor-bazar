@@ -1,11 +1,8 @@
 import React from 'react'
 import CartTable from './CartTable'
 import CartSection from './cartSection'
-import useCartStore from '@/store/cartStore'
-import { auth } from '@/auth'
 
 const CartPage = async () => {
-    const session = await auth()
     return (
         <div
             className='pt-10 px-8 min-h-screen'
@@ -15,7 +12,7 @@ const CartPage = async () => {
             >Shopping Cart</h1>
 
             <CartTable />
-            <CartSection session={session} />
+            <CartSection />
         </div>
     )
 }
