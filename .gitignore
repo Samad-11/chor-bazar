@@ -40,8 +40,6 @@ next-env.d.ts
 
 
 #test files
-src/app/test/
-src/app/test2/
-src/actions/testAction.ts
+**/test/
 
 
